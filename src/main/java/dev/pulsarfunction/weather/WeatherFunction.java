@@ -40,7 +40,6 @@ public class WeatherFunction implements Function<byte[], Void> {
                 context.newOutputMessage(PERSISTENT_PUBLIC_DEFAULT, JSONSchema.of(Weather.class))
                         .key(UUID.randomUUID().toString())
                         .property(LANGUAGE, JAVA)
-                        .property(STATION_ID, weather.getStation_id())
                         .value(weather)
                         .send();
             } catch (PulsarClientException ex) {
