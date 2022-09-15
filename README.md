@@ -95,6 +95,8 @@ Flink SQL> describe aircraftweather;
 
 select temperature_string, weather, wind_string, pressure_string, dewpoint_string, heat_index_string, observation_time, latitude, longitude, location from aircraftweather;
 
+select max(temp_f) as MaxTemp, location from aircraftweather where temp_f is not null and location is not null group by location;
+
 ````
 
 
