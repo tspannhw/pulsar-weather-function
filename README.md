@@ -38,4 +38,19 @@ bin/pulsar-client consume "persistent://public/default/weather" -s "weather-cli-
 
 ````
 
+### Flink SQL
 
+````
+sdk use java 8.0.302-open
+./bin/sql-client.sh embedded --library /opt/flink/flink-release-1.13.2/flink-1.13.2/sqllib -e /opt/flink/flink-release-1.13.2/flink-1.13.2/conf/sql-client-conf.yaml
+
+CREATE CATALOG pulsar WITH (
+   'type' = 'pulsar',
+   'service-url' = 'pulsar://pulsar1:6650',
+   'admin-url' = 'http://pulsar1:8080',
+   'format' = 'json'
+);
+
+USE CATALOG pulsar;
+
+SHOW TABLES;
