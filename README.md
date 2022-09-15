@@ -93,4 +93,11 @@ Flink SQL> describe aircraftweather;
 +-------------------------+--------+-------+-----+--------+-----------+
 30 rows in set
 
+select temperature_string, weather, wind_string, pressure_string, dewpoint_string, heat_index_string, observation_time, latitude, longitude, location from aircraftweather;
+
+````
+
+
+### References
+
 
