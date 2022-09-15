@@ -54,3 +54,43 @@ CREATE CATALOG pulsar WITH (
 USE CATALOG pulsar;
 
 SHOW TABLES;
+
+
+Flink SQL> describe aircraftweather;
++-------------------------+--------+-------+-----+--------+-----------+
+|                    name |   type |  null | key | extras | watermark |
++-------------------------+--------+-------+-----+--------+-----------+
+|              dewpoint_c | DOUBLE | false |     |        |           |
+|              dewpoint_f | DOUBLE | false |     |        |           |
+|         dewpoint_string | STRING |  true |     |        |           |
+|            heat_index_c |    INT | false |     |        |           |
+|            heat_index_f |    INT | false |     |        |           |
+|       heat_index_string | STRING |  true |     |        |           |
+|           icon_url_base | STRING |  true |     |        |           |
+|           icon_url_name | STRING |  true |     |        |           |
+|                latitude | DOUBLE | false |     |        |           |
+|                location | STRING |  true |     |        |           |
+|               longitude | DOUBLE | false |     |        |           |
+|                  ob_url | STRING |  true |     |        |           |
+|        observation_time | STRING |  true |     |        |           |
+| observation_time_rfc822 | STRING |  true |     |        |           |
+|             pressure_in | DOUBLE | false |     |        |           |
+|             pressure_mb | DOUBLE | false |     |        |           |
+|         pressure_string | STRING |  true |     |        |           |
+|       relative_humidity |    INT | false |     |        |           |
+|              station_id | STRING |  true |     |        |           |
+|                  temp_c | DOUBLE | false |     |        |           |
+|                  temp_f | DOUBLE | false |     |        |           |
+|      temperature_string | STRING |  true |     |        |           |
+|     two_day_history_url | STRING |  true |     |        |           |
+|           visibility_mi | DOUBLE | false |     |        |           |
+|                 weather | STRING |  true |     |        |           |
+|            wind_degrees |    INT | false |     |        |           |
+|                wind_dir | STRING |  true |     |        |           |
+|                 wind_kt |    INT | false |     |        |           |
+|                wind_mph | DOUBLE | false |     |        |           |
+|             wind_string | STRING |  true |     |        |           |
++-------------------------+--------+-------+-----+--------+-----------+
+30 rows in set
+
+
