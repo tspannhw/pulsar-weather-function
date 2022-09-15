@@ -97,9 +97,49 @@ select temperature_string, weather, wind_string, pressure_string, dewpoint_strin
 
 select max(temp_f) as MaxTemp, location from aircraftweather where temp_f is not null and location is not null group by location;
 
+select  temperature_string, weather, wind_string, 
+       pressure_string, dewpoint_string, heat_index_string, 
+       observation_time, 
+       latitude, longitude, location, alt_baro,
+       gs,
+       alt_geom,
+       baro_rate,
+       mach, 
+       hex, flight
+FROM aircraft FULL JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.;
+
+
+
+select  alt_baro,
+       gs,
+       alt_geom,
+       baro_rate,
+       mach, 
+       hex, flight,temperature_string, weather, wind_string, 
+       pressure_string, dewpoint_string, heat_index_string, 
+       observation_time, 
+       latitude, longitude, location
+FROM aircraft  JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.longitude;
+
+
+select  alt_baro,
+       gs,
+       alt_geom,
+       baro_rate,
+       mach, 
+       hex, flight,temperature_string, weather, wind_string, 
+       pressure_string, dewpoint_string, heat_index_string, 
+       observation_time, 
+       latitude, longitude, location
+FROM aircraft  LEFT JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.longitude;
+
 ````
 
 
 ### References
 
 * https://youtu.be/2PO15zb7irg
+* https://github.com/tspannhw/ClouderaFlinkSQLForPartners
