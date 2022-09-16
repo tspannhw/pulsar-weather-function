@@ -136,6 +136,260 @@ select  alt_baro,
 FROM aircraft  LEFT JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
 and aircraft.lon = aircraftweather.longitude;
 
+
+CREATE TABLE airweather3 (
+`dewpoint_c` DOUBLE,                      
+`dewpoint_f` DOUBLE,                      
+`dewpoint_string` STRING,                       
+`heat_index_c` INT,                      
+`heat_index_f` INT,                      
+`heat_index_string` STRING,                       
+`icon_url_base` STRING,                       
+`icon_url_name` STRING,                       
+`latitude` DOUBLE,                      
+`location` STRING,                       
+`longitude` DOUBLE,                      
+`ob_url` STRING,                       
+`observation_time` STRING,                       
+`observation_time_rfc822` STRING,                       
+`pressure_in` DOUBLE,                      
+`pressure_mb` DOUBLE,                      
+`pressure_string` STRING,                       
+`relative_humidity` INT,                      
+`station_id` STRING,                       
+`temp_c` DOUBLE,                      
+`temp_f` DOUBLE,                      
+`temperature_string` STRING,                       
+`two_day_history_url` STRING,                       
+`visibility_mi` DOUBLE,                      
+`weather` STRING,                       
+`wind_degrees` INT,                      
+`wind_dir` STRING,                       
+`wind_kt` INT,                      
+`wind_mph` DOUBLE,                      
+`wind_string` STRING,
+`publishTime` TIMESTAMP(3) WITH LOCAL TIME ZONE NOT NULL,
+`currentDate` DATE,
+`currentTime` TIME,
+`currentTimeStamp` TIMESTAMP(3)
+) WITH (
+  'connector' = 'pulsar',
+  'key.format' = 'json',
+  'value.format' = 'json',
+  'service-url' = 'pulsar://pulsar1:6650',
+  'admin-url' = 'http://pulsar1:8080',
+  'scan.startup.mode' = 'earliest' 
+);
+
+
+
+CREATE TABLE airweather3 (
+`dewpoint_c` DOUBLE,                      
+`dewpoint_f` DOUBLE,                      
+`dewpoint_string` STRING,                       
+`heat_index_c` INT,                      
+`heat_index_f` INT,                      
+`heat_index_string` STRING,                       
+`icon_url_base` STRING,                       
+`icon_url_name` STRING,                       
+`latitude` DOUBLE,                      
+`location` STRING,                       
+`longitude` DOUBLE,                      
+`ob_url` STRING,                       
+`observation_time` STRING,                       
+`observation_time_rfc822` STRING,                       
+`pressure_in` DOUBLE,                      
+`pressure_mb` DOUBLE,                      
+`pressure_string` STRING,                       
+`relative_humidity` INT,                      
+`station_id` STRING,                       
+`temp_c` DOUBLE,                      
+`temp_f` DOUBLE,                      
+`temperature_string` STRING,                       
+`two_day_history_url` STRING,                       
+`visibility_mi` DOUBLE,                      
+`weather` STRING,                       
+`wind_degrees` INT,                      
+`wind_dir` STRING,                       
+`wind_kt` INT,                      
+`wind_mph` DOUBLE,                      
+`wind_string` STRING
+) WITH (
+  'connector' = 'pulsar',
+  'key.format' = 'json',
+  'value.format' = 'json',
+  'service-url' = 'pulsar://pulsar1:6650',
+  'admin-url' = 'http://pulsar1:8080',
+  'scan.startup.mode' = 'earliest' 
+);
+
+````
+
+#### in progress
+
+````
+
+select  temperature_string, weather, wind_string, 
+       pressure_string, dewpoint_string, heat_index_string, 
+       observation_time, 
+       latitude, longitude, location, alt_baro,
+       gs,
+       alt_geom,
+       baro_rate,
+       mach, 
+       hex, flight
+FROM aircraft FULL JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.;
+
+
+
+select  alt_baro,
+       gs,
+       alt_geom,
+       baro_rate,
+       mach, 
+       hex, flight,temperature_string, weather, wind_string, 
+       pressure_string, dewpoint_string, heat_index_string, 
+       observation_time, 
+       latitude, longitude, location
+FROM aircraft  JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.longitude;
+
+
+select  alt_baro,
+       gs,
+       alt_geom,
+       baro_rate,
+       mach, 
+       hex, flight,temperature_string, weather, wind_string, 
+       pressure_string, dewpoint_string, heat_index_string, 
+       observation_time, 
+       latitude, longitude, location
+FROM aircraft  LEFT JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.longitude;
+
+
+select COALESCE(location,station_id,'?') || ' ' || cast(lat as string) || ',' || cast(lon as string) as Location, 
+       COALESCE(flight,'-','-') || ' ' || COALESCE(hex, '-','-') as FlightNum, 
+       cast(alt_baro  as string) || ' ' ||  cast(alt_geom as string) as Altitude, 
+       gs as Speed,
+       temperature_string || weather as Weather, 
+       mach, pressure_string, dewpoint_string, heat_index_string, wind_string, baro_rate
+FROM aircraft  LEFT JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.longitude;
+
+select alt_baro, hex, flight, lat, lon, station_id, location, latitude, longitude
+FROM aircraft  FULL JOIN aircraftweather ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.longitude;
+
+set table.dynamic-table-options.enabled = true;
+
+select alt_baro, hex, flight, lat, lon
+qfrom aircraft /*+ OPTIONS('scan.startup.mode' = 'earliest') */ 
+where lat is not null
+
+select COALESCE(location,station_id,'?') || ' ' || cast(lat as string) || ',' || cast(lon as string) as Location, 
+       COALESCE(flight,'-','-') || ' ' || COALESCE(hex, '-','-') as FlightNum, 
+       cast(alt_baro  as string) || ' ' ||  cast(alt_geom as string) as Altitude, 
+       gs as Speed,
+       temperature_string || weather as Weather, 
+       mach, pressure_string, dewpoint_string, heat_index_string, wind_string, baro_rate
+FROM aircraft /*+ OPTIONS('scan.startup.mode' = 'earliest') */   LEFT JOIN aircraftweather /*+ OPTIONS('scan.startup.mode' = 'earliest') */  ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.longitude;
+
+select COALESCE(location,station_id,'?') || ' ' || cast(lat as string) || ',' || cast(lon as string) as Location, 
+       COALESCE(flight,'-','-') || ' ' || COALESCE(hex, '-','-') as FlightNum, 
+       cast(alt_baro  as string) || ' ' ||  cast(alt_geom as string) as Altitude, 
+       gs as Speed,
+       temperature_string || weather as Weather, 
+       mach, pressure_string, dewpoint_string, heat_index_string, wind_string, baro_rate
+FROM aircraft /*+ OPTIONS('scan.startup.mode' = 'earliest') */   LEFT JOIN aircraftweather /*+ OPTIONS('scan.startup.mode' = 'earliest') */  ON aircraft.lat = aircraftweather.latitude
+and aircraft.lon = aircraftweather.longitude
+WHERE weather is not null;
+
+
+select alt_baro, hex, flight, lat, lon
+from aircraft /*+ OPTIONS('scan.startup.mode' = 'earliest') */ 
+where lat is not null;
+
+select latitude, longitude, location, temperature_string, weather, wind_string, 
+       pressure_string, dewpoint_string, heat_index_string, 
+       observation_time
+from aircraftweather /*+ OPTIONS('scan.startup.mode' = 'earliest') */ ;
+
+
+--- order
+
+CREATE CATALOG pulsar WITH (
+   'type' = 'pulsar',
+   'service-url' = 'pulsar://pulsar1:6650',
+   'admin-url' = 'http://pulsar1:8080',
+   'format' = 'json'
+);
+
+USE CATALOG pulsar;
+
+set table.dynamic-table-options.enabled = true;
+
+
+select latitude, longitude, location, temperature_string, weather, wind_string,
+        pressure_string, dewpoint_string, heat_index_string,
+        observation_time
+ from aircraftweather /*+ OPTIONS('scan.startup.mode' = 'earliest') */ where location like '%New%Jersey%' or location like '%NJ%';
+
+INSERT INTO weathernj 
+SELECT *
+FROM aircraftweather
+WHERE `location` is not null and `location` <> 'null' and trim(`location`) <> '' and `location` like '%NJ'
+WITH (
+  'connector'='pulsar',
+  'value.format'='json'
+ );
+
+select distinct location from aircraftweather /*+ OPTIONS('scan.startup.mode' = 'earliest') */;
+
+
+select CURRENT_DATE, CURRENT_TIME, CURRENT_TIMESTAMP, location  from aircraftweather /*+ OPTIONS('scan.startup.mode' = 'earliest') */;
+
+See
+
+https://github.com/tspannhw/SmartWeather
+
+https://nightlies.apache.org/flink/flink-docs-master/docs/dev/table/sql/queries/hints/
+
+https://github.com/tspannhw/SmartWeather/blob/a901efa0d015cd23bb79784ee27556efefea1b1b/flink.sql
+
+https://github.com/tspannhw/CloudDemo2021/blob/main/flinksql/weathernj.sql
+
+https://github.com/tspannhw/ClouderaFlinkSQLForPartners
+
+https://streamnative.io/blog/release/2022-08-30-announcing-the-flink-pulsar-sink-connector/
+
+https://hub.streamnative.io/data-processing/pulsar-flink/1.15.0.1/
+
+https://github.com/streamnative/flink/blob/develop/docs/content/docs/connectors/table/pulsar.md
+
+https://github.com/streamnative/flink-example
+
+https://github.com/streamnative/flink-example/blob/main/sql-examples/sql-example.md
+
+
+source.start.message-id = earliest
+
+  'source.start.message-id' = 'earliest' ,
+
+
+set table.dynamic-table-options.enabled = true;
+
+https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/dev/table/config/
+
+for pre 1.15
+https://hub.streamnative.io/data-processing/pulsar-flink/1.13/
+
+'scan.startup.mode' = 'earliest' 
+
+
+
 ````
 
 
