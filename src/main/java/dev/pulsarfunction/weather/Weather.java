@@ -42,80 +42,13 @@ public class Weather implements Serializable {
     private String two_day_history_url;
     private String icon_url_name;
     private String ob_url;
+    private String uuid;
 
     public Weather() {
         super();
     }
 
-    public Weather( String location, String station_id, double latitude, double longitude, String observation_time, String observation_time_rfc822, String weather, String temperature_string, double temp_f, double temp_c, int relative_humidity, String wind_string, String wind_dir, int wind_degrees, double wind_mph, int wind_kt, String pressure_string, double pressure_mb, double pressure_in, String dewpoint_string, double dewpoint_f, double dewpoint_c, String heat_index_string, int heat_index_f, int heat_index_c, double visibility_mi, String icon_url_base, String two_day_history_url, String icon_url_name, String ob_url) {
-        super();
-        this.location = location;
-        this.station_id = station_id;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.observation_time = observation_time;
-        this.observation_time_rfc822 = observation_time_rfc822;
-        this.weather = weather;
-        this.temperature_string = temperature_string;
-        this.temp_f = temp_f;
-        this.temp_c = temp_c;
-        this.relative_humidity = relative_humidity;
-        this.wind_string = wind_string;
-        this.wind_dir = wind_dir;
-        this.wind_degrees = wind_degrees;
-        this.wind_mph = wind_mph;
-        this.wind_kt = wind_kt;
-        this.pressure_string = pressure_string;
-        this.pressure_mb = pressure_mb;
-        this.pressure_in = pressure_in;
-        this.dewpoint_string = dewpoint_string;
-        this.dewpoint_f = dewpoint_f;
-        this.dewpoint_c = dewpoint_c;
-        this.heat_index_string = heat_index_string;
-        this.heat_index_f = heat_index_f;
-        this.heat_index_c = heat_index_c;
-        this.visibility_mi = visibility_mi;
-        this.icon_url_base = icon_url_base;
-        this.two_day_history_url = two_day_history_url;
-        this.icon_url_name = icon_url_name;
-        this.ob_url = ob_url;
-    }
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Weather.class.getSimpleName() + "[", "]")
-                .add("location='" + location + "'")
-                .add("station_id='" + station_id + "'")
-                .add("latitude=" + latitude)
-                .add("longitude=" + longitude)
-                .add("observation_time='" + observation_time + "'")
-                .add("observation_time_rfc822='" + observation_time_rfc822 + "'")
-                .add("weather='" + weather + "'")
-                .add("temperature_string='" + temperature_string + "'")
-                .add("temp_f=" + temp_f)
-                .add("temp_c=" + temp_c)
-                .add("relative_humidity=" + relative_humidity)
-                .add("wind_string='" + wind_string + "'")
-                .add("wind_dir='" + wind_dir + "'")
-                .add("wind_degrees=" + wind_degrees)
-                .add("wind_mph=" + wind_mph)
-                .add("wind_kt=" + wind_kt)
-                .add("pressure_string='" + pressure_string + "'")
-                .add("pressure_mb=" + pressure_mb)
-                .add("pressure_in=" + pressure_in)
-                .add("dewpoint_string='" + dewpoint_string + "'")
-                .add("dewpoint_f=" + dewpoint_f)
-                .add("dewpoint_c=" + dewpoint_c)
-                .add("heat_index_string='" + heat_index_string + "'")
-                .add("heat_index_f=" + heat_index_f)
-                .add("heat_index_c=" + heat_index_c)
-                .add("visibility_mi=" + visibility_mi)
-                .add("icon_url_base='" + icon_url_base + "'")
-                .add("two_day_history_url='" + two_day_history_url + "'")
-                .add("icon_url_name='" + icon_url_name + "'")
-                .add("ob_url='" + ob_url + "'")
-                .toString();
-    }
 
 
     public String getLocation() {
@@ -356,5 +289,97 @@ public class Weather implements Serializable {
 
     public void setOb_url(String ob_url) {
         this.ob_url = ob_url;
+    }
+
+    private long ts = 0;
+
+    public void setTs(long ts) {
+        this.ts = ts;
+    }
+
+    public long getTs() {
+        return ts;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Weather.class.getSimpleName() + "[", "]")
+                .add("location='" + location + "'")
+                .add("station_id='" + station_id + "'")
+                .add("latitude=" + latitude)
+                .add("longitude=" + longitude)
+                .add("observation_time='" + observation_time + "'")
+                .add("observation_time_rfc822='" + observation_time_rfc822 + "'")
+                .add("weather='" + weather + "'")
+                .add("temperature_string='" + temperature_string + "'")
+                .add("temp_f=" + temp_f)
+                .add("temp_c=" + temp_c)
+                .add("relative_humidity=" + relative_humidity)
+                .add("wind_string='" + wind_string + "'")
+                .add("wind_dir='" + wind_dir + "'")
+                .add("wind_degrees=" + wind_degrees)
+                .add("wind_mph=" + wind_mph)
+                .add("wind_kt=" + wind_kt)
+                .add("pressure_string='" + pressure_string + "'")
+                .add("pressure_mb=" + pressure_mb)
+                .add("pressure_in=" + pressure_in)
+                .add("dewpoint_string='" + dewpoint_string + "'")
+                .add("dewpoint_f=" + dewpoint_f)
+                .add("dewpoint_c=" + dewpoint_c)
+                .add("heat_index_string='" + heat_index_string + "'")
+                .add("heat_index_f=" + heat_index_f)
+                .add("heat_index_c=" + heat_index_c)
+                .add("visibility_mi=" + visibility_mi)
+                .add("icon_url_base='" + icon_url_base + "'")
+                .add("two_day_history_url='" + two_day_history_url + "'")
+                .add("icon_url_name='" + icon_url_name + "'")
+                .add("ob_url='" + ob_url + "'")
+                .add("uuid='" + uuid + "'")
+                .add("ts=" + ts)
+                .toString();
+    }
+
+    public Weather(String location, String station_id, double latitude, double longitude, String observation_time, String observation_time_rfc822, String weather, String temperature_string, double temp_f, double temp_c, int relative_humidity, String wind_string, String wind_dir, int wind_degrees, double wind_mph, int wind_kt, String pressure_string, double pressure_mb, double pressure_in, String dewpoint_string, double dewpoint_f, double dewpoint_c, String heat_index_string, int heat_index_f, int heat_index_c, double visibility_mi, String icon_url_base, String two_day_history_url, String icon_url_name, String ob_url, String uuid, long ts) {
+        super();
+        this.location = location;
+        this.station_id = station_id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.observation_time = observation_time;
+        this.observation_time_rfc822 = observation_time_rfc822;
+        this.weather = weather;
+        this.temperature_string = temperature_string;
+        this.temp_f = temp_f;
+        this.temp_c = temp_c;
+        this.relative_humidity = relative_humidity;
+        this.wind_string = wind_string;
+        this.wind_dir = wind_dir;
+        this.wind_degrees = wind_degrees;
+        this.wind_mph = wind_mph;
+        this.wind_kt = wind_kt;
+        this.pressure_string = pressure_string;
+        this.pressure_mb = pressure_mb;
+        this.pressure_in = pressure_in;
+        this.dewpoint_string = dewpoint_string;
+        this.dewpoint_f = dewpoint_f;
+        this.dewpoint_c = dewpoint_c;
+        this.heat_index_string = heat_index_string;
+        this.heat_index_f = heat_index_f;
+        this.heat_index_c = heat_index_c;
+        this.visibility_mi = visibility_mi;
+        this.icon_url_base = icon_url_base;
+        this.two_day_history_url = two_day_history_url;
+        this.icon_url_name = icon_url_name;
+        this.ob_url = ob_url;
+        this.uuid = uuid;
+        this.ts = ts;
     }
 }

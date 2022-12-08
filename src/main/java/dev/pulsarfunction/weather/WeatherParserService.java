@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  {
@@ -41,6 +43,7 @@ public class WeatherParserService {
     private Weather parseMessage(String message) {
         Weather weather = new Weather();
         if (message == null) {
+            System.out.println("Weather is null");
             return weather;
         }
 
@@ -50,6 +53,10 @@ public class WeatherParserService {
             rawWeather = mapper.readValue(message, RawWeather.class);
 
             if ( rawWeather != null ) {
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                weather.setTs( timestamp.getTime() );
+                weather.setUuid(UUID.randomUUID().toString() );
+
                 weather.setWeather(rawWeather.getWeather());
 
                 weather.setDewpoint_c(rawWeather.getDewpoint_c());
@@ -92,7 +99,7 @@ public class WeatherParserService {
 
                 weather.setVisibility_mi(rawWeather.getVisibility_mi());
             }
-        } catch (JsonProcessingException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
             return weather;
         }

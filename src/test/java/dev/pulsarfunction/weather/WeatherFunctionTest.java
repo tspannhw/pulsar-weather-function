@@ -2,7 +2,6 @@ package dev.pulsarfunction.weather;
 
 import org.apache.pulsar.common.functions.FunctionConfig;
 import org.apache.pulsar.functions.LocalRunner;
-import org.apache.pulsar.functions.api.BaseContext;
 import org.apache.pulsar.functions.api.Context;
 import org.junit.Test;
 
@@ -32,7 +31,7 @@ public class WeatherFunctionTest {
 
     /**
      *
-     * @param msg
+     * @param msg   logged message
      */
     protected void log(String msg) {
         if (ctx != null && ctx.getLogger() != null) {
@@ -52,12 +51,12 @@ public class WeatherFunctionTest {
 
     /**
      * @param args   string arguments
-     * @throws Exception
+     * @throws Exception    fail
      */
     public static void main(String[] args) throws Exception {
 
         // multiple topics
-        Collection<String> inputTopics = new ArrayList<String>();
+        Collection<String> inputTopics = new ArrayList<>();
         inputTopics.add("persistent://public/default/weather");
 
         FunctionConfig functionConfig = FunctionConfig.builder()
@@ -68,13 +67,13 @@ public class WeatherFunctionTest {
                 .cleanupSubscription(true)
                 .tenant("public")
                 .namespace("default")
-                .subName("weather-sub-test")
+                .subName("wtest1")
                 .maxMessageRetries(3)
                 .autoAck(true)
                 .build();
 
         LocalRunner localRunner = LocalRunner.builder()
-                .brokerServiceUrl("pulsar://pulsar1:6650")
+                .brokerServiceUrl("pulsar://Timothys-MBP:6650")
                 .functionConfig(functionConfig)
                 .build();
 
