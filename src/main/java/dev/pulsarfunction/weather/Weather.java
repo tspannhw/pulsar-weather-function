@@ -48,9 +48,6 @@ public class Weather implements Serializable {
         super();
     }
 
-
-
-
     public String getLocation() {
         return location;
     }

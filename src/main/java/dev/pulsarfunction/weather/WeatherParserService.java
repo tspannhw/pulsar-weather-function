@@ -41,12 +41,13 @@ public class WeatherParserService {
      * @return Weather object
      */
     private Weather parseMessage(String message) {
-        Weather weather = new Weather();
+
         if (message == null) {
             System.out.println("Weather is null");
-            return weather;
+            return null;
         }
 
+        Weather weather = new Weather();
         RawWeather rawWeather = null;
         ObjectMapper mapper = new ObjectMapper();
         try {

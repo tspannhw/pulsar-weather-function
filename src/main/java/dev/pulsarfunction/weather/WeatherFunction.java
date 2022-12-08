@@ -38,7 +38,7 @@ public class WeatherFunction implements Function<byte[], Void> {
                 context.getLogger().debug(MESSAGE_JSON + weather.toString());
             }
             try {
-                if ( context != null) {
+                if ( context != null && weather.getTemperature_string() !=null) {
                     String newKey = "";
 
                     try {
@@ -53,7 +53,7 @@ public class WeatherFunction implements Function<byte[], Void> {
                             .property(LANGUAGE, JAVA)
                             .value(weather)
                             .send();
-                    
+
                     if (context != null && context.getLogger() != null &&
                             context.getLogger().isDebugEnabled()) {
                         context.getLogger().debug("ID" + sendResult.toString());
