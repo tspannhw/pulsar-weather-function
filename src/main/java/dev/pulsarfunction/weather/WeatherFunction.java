@@ -38,7 +38,7 @@ public class WeatherFunction implements Function<byte[], Void> {
                 context.getLogger().debug(MESSAGE_JSON + weather.toString());
             }
             try {
-                if ( context != null && weather.getTemperature_string() !=null) {
+                if ( context != null && weather.getTemperature_string() !=null && weather.getLatitude() != 0) {
                     String newKey = "";
 
                     try {
